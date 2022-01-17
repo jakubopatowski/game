@@ -1,0 +1,37 @@
+file(GLOB SRC_LIST CONFIGURE_DEPENDS "*.cpp")
+file(GLOB HEADER_LIST CONFIGURE_DEPENDS "*.hpp")
+
+set(exe_target "GameApp")
+
+add_executable(${exe_target}
+    ${SRC_LIST}
+    ${HEADER_LIST}
+)
+
+target_compile_features(${exe_target} PUBLIC cxx_std_20)
+
+# Check what is the compiler
+if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+  # using regular Clang or AppleClang
+  target_compile_options(${exe_target} PRIVATE -Wpedantic -W)
+  if (CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "MSVC")
+    # using clang with clang-cl front end
+  elseif (CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "GNU")
+    # using clang with regular front end
+  endif()
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+  # using GCC
+  target_compile_options(${exe_target} PRIVATE -Wpedantic -W)
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
+  # using Intel C++
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+  # using Visual Studio C++
+  target_compile_options(${exe_target} PRIVATE /permissive- /W4)
+endif()
+
+get_target_property(MAIN_CFLAGS ${exe_target} COMPILE_OPTIONS)
+# also see: COMPILE_DEFINITIONS INCLUDE_DIRECTORIES
+message("-- Target compiler flags are: ${MAIN_CFLAGS}")
+
+set(SFML_STATIC_LIBRARIES TRUE)
+find_package (SFML REQUIRED system window graphics network)
