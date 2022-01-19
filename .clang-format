@@ -1,0 +1,31 @@
+﻿---
+BasedOnStyle: LLVM
+AllowShortEnumsOnASingleLine: false
+AllowShortIfStatementsOnASingleLine: Never
+AlwaysBreakTemplateDeclarations: Yes
+BraceWrapping:
+    AfterCaseLabel: false
+    AfterClass: true
+    AfterEnum: false
+    AfterNamespace: false
+    AfterStruct: false
+    BeforeCatch: true
+    BeforeElse: true
+    BeforeWhile: true
+    SplitEmptyFunction: false
+BreakBeforeBraces: Custom
+ColumnLimit: 100
+CompactNamespaces: false
+FixNamespaceComments: true
+#IndentAccessModifiers: false
+IndentWidth: '4'
+NamespaceIndentation: None
+PointerAlignment: Left
+SpacesInAngles: true
+SpacesInAngles: true
+SpacesInConditionalStatement: true
+SpacesInContainerLiterals: true
+SpacesInCStyleCastParentheses: true
+SpacesInParentheses: true
+SpacesInSquareBrackets: true
+...

@@ -26,12 +26,17 @@ elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
   # using Intel C++
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
   # using Visual Studio C++
-  target_compile_options(${exe_target} PRIVATE /permissive- /W4)
+  target_compile_options(${exe_target} PRIVATE /permissive- /W4 -Wall)
 endif()
 
 get_target_property(MAIN_CFLAGS ${exe_target} COMPILE_OPTIONS)
 # also see: COMPILE_DEFINITIONS INCLUDE_DIRECTORIES
 message("-- Target compiler flags are: ${MAIN_CFLAGS}")
 
-set(SFML_STATIC_LIBRARIES TRUE)
-find_package (SFML REQUIRED system window graphics network)
+target_link_libraries(${exe_target}
+PUBLIC
+  sfml-window
+  sfml-system
+  sfml-graphics
+  sfml-audio
+  )
