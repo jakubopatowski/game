@@ -1,21 +1,26 @@
 #include "game.hpp"
+#include "asteroid.hpp"
 #include <iostream>
 
 Game::Game() {
     videoMode.height = 600;
     videoMode.width = 800;
+
     window =
         new sf::RenderWindow( videoMode, "My first game", sf::Style::Titlebar | sf::Style::Close );
     window->setFramerateLimit( 60 );
 
-    enemy.setPosition( sf::Vector2f( 100.f, 100.f ) );
-    enemy.setSize( sf::Vector2f( 100.f, 100.f ) );
-    enemy.setFillColor( sf::Color::Cyan );
-    enemy.setOutlineColor( sf::Color::Green );
-    enemy.setOutlineThickness( 1.f );
+    spawnCount = 0;
+    spawnOffset = 60;
 }
 
-Game::~Game() { delete window; }
+Game::~Game() {
+    delete window;
+    for(auto it : enemies){
+        delete it;
+    }
+    enemies.clear();
+}
 
 void Game::gameLoop() {
     while ( window->isOpen() ) {
@@ -24,18 +29,26 @@ void Game::gameLoop() {
     }
 }
 
+void Game::updateMousePositions() { mousePosWindow = sf::Mouse::getPosition( *window ); }
+
 void Game::update() {
     poolEvents();
-    std::cout << "Mouse position: " << sf::Mouse::getPosition( *window ).x << " "
-              << sf::Mouse::getPosition( *window ).y << '\n';
+    updateMousePositions();
+
+    spawnEnemies(); 
+    for ( auto obj : enemies ) {
+        obj->update();
+    }
+
+    // std::cout << "Mouse position: " << sf::Mouse::getPosition( *window ).x << " "
+    //          << sf::Mouse::getPosition( *window ).y << '\n';
 }
 
-// putting pixels on the screen
 void Game::render() {
     window->clear();
-
-    window->draw( enemy );
-
+    for ( auto obj : enemies ) {
+        window->draw( *( obj->getDrawable() ) );
+    }
     window->display();
 }
 
@@ -50,5 +63,16 @@ void Game::poolEvents() {
                 window->close();
             break;
         }
+    }
+}
+
+void Game::spawnEnemies() {
+    if(spawnCount >= spawnOffset){
+        auto* enemy = new Asteroid();
+        enemies.push_back( enemy );
+        spawnCount = 0;
+    }
+    else{
+        ++spawnCount;
     }
 }
