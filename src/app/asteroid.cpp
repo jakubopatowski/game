@@ -20,4 +20,11 @@ Asteroid::Asteroid() {
     m_obj->setOutlineThickness( 1.f );
 }
 
+bool Asteroid::interacted( const sf::Vector2f& mousePosView ) {
+    if(m_obj->getGlobalBounds().contains( mousePosView )){
+        return true; 
+    }
+    return false;
+}
+
 void Asteroid::update() { m_obj->move( sf::Vector2f( 0.f, 1.f ) ); }

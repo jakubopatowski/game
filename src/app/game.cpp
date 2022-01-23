@@ -16,7 +16,7 @@ Game::Game() {
 
 Game::~Game() {
     delete window;
-    for(auto it : enemies){
+    for ( auto it : enemies ) {
         delete it;
     }
     enemies.clear();
@@ -29,15 +29,26 @@ void Game::gameLoop() {
     }
 }
 
-void Game::updateMousePositions() { mousePosWindow = sf::Mouse::getPosition( *window ); }
+void Game::updateMousePositions() {
+    mousePosWindow = sf::Mouse::getPosition( *window );
+    mousePosView = window->mapPixelToCoords( mousePosWindow );
+}
 
 void Game::update() {
     poolEvents();
     updateMousePositions();
 
-    spawnEnemies(); 
-    for ( auto obj : enemies ) {
-        obj->update();
+    spawnEnemies();
+    for ( auto it = enemies.begin(); it != enemies.end(); ) {
+        ( *it )->update();
+
+        // check if clicked
+        if ( ( *it )->interacted( mousePosView ) ) {
+            it = enemies.erase( it );
+        }
+        else{
+            ++it;
+        }
     }
 
     // std::cout << "Mouse position: " << sf::Mouse::getPosition( *window ).x << " "
@@ -67,12 +78,12 @@ void Game::poolEvents() {
 }
 
 void Game::spawnEnemies() {
-    if(spawnCount >= spawnOffset){
+    if ( spawnCount >= spawnOffset ) {
         auto* enemy = new Asteroid();
         enemies.push_back( enemy );
         spawnCount = 0;
     }
-    else{
+    else {
         ++spawnCount;
     }
 }

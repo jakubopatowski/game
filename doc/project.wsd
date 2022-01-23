@@ -1,0 +1,26 @@
+@startuml
+'!theme sketchy-outline
+'!theme blueprint
+'!theme cerulean-outline
+'!theme amiga
+'!theme materia-outline
+'!theme plain
+!theme crt-green
+
+interface IGameObject{
+    {abstract} void update()
+    {abstract} sf::Drawable* getDrawable()
+}
+
+class Asteroid{
+
+}
+
+class Game{
+}
+
+IGameObject <|-- Asteroid
+Game o-- Asteroid
+
+
+@enduml

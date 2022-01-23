@@ -7,7 +7,7 @@
 #include"SFML/Network.hpp"
 #include<vector>
 
-class GameObject;
+class IGameObject;
 class Asteroid;
 class Game
 {
@@ -33,8 +33,9 @@ class Game
     void spawnEnemies();
     int spawnCount;
     int spawnOffset;
-    std::vector< GameObject* > enemies;
+    std::vector< IGameObject* > enemies;
 
     //Mouse position
     sf::Vector2i mousePosWindow;
+    sf::Vector2f mousePosView;
 };

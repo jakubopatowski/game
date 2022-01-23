@@ -1,14 +1,15 @@
 #pragma once
 
+#include "IGameObject.hpp"
 #include "SFML/Graphics.hpp"
-#include "game_object.hpp"
 
-class Asteroid : public GameObject
+class Asteroid : public IGameObject
 {
   public:
     Asteroid();
     virtual ~Asteroid() { delete m_obj; };
 
+    virtual bool interacted( const sf::Vector2f& mousePosView );
     virtual void update();
     virtual sf::Drawable* getDrawable() { return m_obj; };
 
