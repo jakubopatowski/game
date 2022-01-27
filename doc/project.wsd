@@ -7,6 +7,12 @@
 '!theme plain
 !theme crt-green
 
+
+interface IGameMove{
+    {abstract} 
+}
+
+
 interface IGameObject{
     {abstract} void update()
     {abstract} sf::Drawable* getDrawable()
@@ -20,6 +26,7 @@ class Game{
 }
 
 IGameObject <|-- Asteroid
+IGameMove <|-- Asteroid
 Game o-- Asteroid
 
 

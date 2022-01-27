@@ -1,6 +1,7 @@
 #include "asteroid.hpp"
 #include<random>
 #include<chrono>
+#include<cmath>
 
 Asteroid::Asteroid() {
 
@@ -18,6 +19,12 @@ Asteroid::Asteroid() {
     m_obj->setFillColor( sf::Color::Cyan );
     m_obj->setOutlineColor( sf::Color::Green );
     m_obj->setOutlineThickness( 1.f );
+
+    motion = []( float x ) {
+        float y = x * 0.01 + 100;
+        y = 300 * sin( y ) + 300;
+        return y;
+    };
 }
 
 bool Asteroid::interacted( const sf::Vector2f& mousePosView ) {
@@ -27,4 +34,9 @@ bool Asteroid::interacted( const sf::Vector2f& mousePosView ) {
     return false;
 }
 
-void Asteroid::update() { m_obj->move( sf::Vector2f( 0.f, 1.f ) ); }
+void Asteroid::update() {
+    auto pos = m_obj->getPosition();
+    auto x = motion( pos.y + 1.f );
+    m_obj->setPosition( x, pos.y + 1.f );
+    //m_obj->move( sf::Vector2f( 0.f, 1.f ) ); 
+}

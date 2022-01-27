@@ -14,5 +14,10 @@ Enjoy!
 
 ## SFML tutorials
 
-- Beautiful [tutorial](https://www.youtube.com/playlist?list=PL6xSOsbVA1eb_QqMTTcql_3PdOiE928up) about SFML and C++ game development for begginers.
+- Beautiful [tutorial](https://www.youtube.com/playlist?list=PL6xSOsbVA1eb_QqMTTcql_3PdOiE928up) about SFML and C++ game development for beginners.
 
+## Project management
+
+- Curse in [UML standard](https://www.youtube.com/watch?v=WnMQ8HlmeXc) for beginners. Everyone who thinks seriously about programming, should at least know how to draw a class diagram.
+- I'm using [PlantUml](https://plantuml.com/) to manage my uml project design.
+  It is a text base tool for generating all kinds of uml diagrams. Highly recommended for software architects.

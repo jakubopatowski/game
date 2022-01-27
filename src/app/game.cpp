@@ -40,15 +40,27 @@ void Game::update() {
 
     spawnEnemies();
     for ( auto it = enemies.begin(); it != enemies.end(); ) {
-        ( *it )->update();
+        bool toDelete = false;
 
         // check if clicked
-        if ( ( *it )->interacted( mousePosView ) ) {
+        if ( sf::Mouse::isButtonPressed( sf::Mouse::Left ) ) {
+            if ( ( *it )->interacted( mousePosView ) ) {
+                toDelete = true;
+            }
+        }
+
+        // check if out of screen
+        if ( ( *it )->getTranformable()->getPosition().y > window->getSize().y ) {
+            toDelete = true;
+        }
+
+        if ( toDelete ) {
             it = enemies.erase( it );
+            continue;
         }
-        else{
-            ++it;
-        }
+
+        ( *it )->update();
+        ++it;
     }
 
     // std::cout << "Mouse position: " << sf::Mouse::getPosition( *window ).x << " "
