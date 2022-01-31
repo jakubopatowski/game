@@ -38,5 +38,4 @@ void Asteroid::update() {
     auto pos = m_obj->getPosition();
     auto x = motion( pos.y + 1.f );
     m_obj->setPosition( x, pos.y + 1.f );
-    //m_obj->move( sf::Vector2f( 0.f, 1.f ) ); 
 }
