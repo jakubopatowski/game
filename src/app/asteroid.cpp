@@ -7,13 +7,12 @@ Asteroid::Asteroid() {
 
     m_obj = new sf::RectangleShape();
 
-    unsigned int seed;
-    std::default_random_engine dre;
-    dre.seed( std::chrono::system_clock::now().time_since_epoch().count() );
-    std::uniform_int_distribution< int > di( 20, 780 );
+    std::random_device rd;
+    std::mt19937 mt( rd() );
+    std::uniform_real_distribution< double > di( 20.0, 780.0 );
 
-    float tmp = di( dre );
-    m_obj->setPosition( tmp, -10.f );
+    random = di( rd );
+    m_obj->setPosition( random, -10.f );
     m_obj->setSize( sf::Vector2f( 100.f, 100.f ) );
     m_obj->setScale( sf::Vector2f( 0.5f, 0.5f ) );
     m_obj->setFillColor( sf::Color::Cyan );
@@ -36,6 +35,6 @@ bool Asteroid::interacted( const sf::Vector2f& mousePosView ) {
 
 void Asteroid::update() {
     auto pos = m_obj->getPosition();
-    auto x = motion( pos.y + 1.f );
+    auto x = motion( pos.y + random );
     m_obj->setPosition( x, pos.y + 1.f );
 }

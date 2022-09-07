@@ -17,6 +17,7 @@ class Asteroid : public IGameObject
     virtual const sf::Transformable* getTranformable() { return m_obj; }
 
   private:
+    float random;
     sf::RectangleShape* m_obj;
     std::function< float( float ) > motion;
 };
