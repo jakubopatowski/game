@@ -5,7 +5,11 @@
 
 Asteroid::Asteroid() {
 
-    m_obj = new sf::RectangleShape();
+    m_obj = new sf::Sprite();
+    texture.loadFromFile( "rocket.png" );
+    m_obj->setTexture( texture );
+    m_obj->rotate( 180.f );
+    m_obj->setScale( 2.f, 2.f );
 
     std::random_device rd;
     std::mt19937 mt( rd() );
@@ -13,11 +17,6 @@ Asteroid::Asteroid() {
 
     random = di( rd );
     m_obj->setPosition( random, -10.f );
-    m_obj->setSize( sf::Vector2f( 100.f, 100.f ) );
-    m_obj->setScale( sf::Vector2f( 0.5f, 0.5f ) );
-    m_obj->setFillColor( sf::Color::Cyan );
-    m_obj->setOutlineColor( sf::Color::Green );
-    m_obj->setOutlineThickness( 1.f );
 
     motion = []( float x ) {
         float y = x * 0.01 + 100;
