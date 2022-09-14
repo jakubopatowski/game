@@ -10,6 +10,10 @@ Game::Game() {
         new sf::RenderWindow( videoMode, "My first game", sf::Style::Titlebar | sf::Style::Close );
     window->setFramerateLimit( 60 );
 
+    background_texture.loadFromFile( "background.png" );
+    background_sprite.setTexture( background_texture );
+    background_sprite.setScale( sf::Vector2f( 2.0, 2.0 ) );
+
     spawnCount = 0;
     spawnOffset = 60;
 }
@@ -69,6 +73,7 @@ void Game::update() {
 
 void Game::render() {
     window->clear();
+    window->draw( background_sprite );
     for ( auto obj : enemies ) {
         window->draw( *( obj->getDrawable() ) );
     }

@@ -8,7 +8,7 @@ Asteroid::Asteroid() {
     m_obj = new sf::Sprite();
     texture.loadFromFile( "rocket.png" );
     m_obj->setTexture( texture );
-    m_obj->rotate( 180.f );
+    //m_obj->rotate( 180.f );
     m_obj->setScale( 2.f, 2.f );
 
     std::random_device rd;

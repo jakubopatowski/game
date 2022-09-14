@@ -35,6 +35,9 @@ class Game
     int spawnOffset;
     std::vector< IGameObject* > enemies;
 
+    sf::Texture background_texture;
+    sf::Sprite background_sprite;
+
     //Mouse position
     sf::Vector2i mousePosWindow;
     sf::Vector2f mousePosView;
